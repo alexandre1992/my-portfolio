@@ -6,21 +6,39 @@ import { Send, Bot, User, Trash2, HelpCircle, Loader2 } from "lucide-react";
 export default function AIChatBot() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
-       id: "welcome",
-       role: "model",
-       text: "Olá! Sou o Assistente Inteligente Oficial do Mauricio. Fui treinado diretamente com o histórico de sua carreira, suas certificações de Android/Flutter e seus projetos de design system. Pode perguntar sobre minhas experiências na Kantar IBOPE ou Fundação Zerrenner, minhas competências técnicas ou projetos! Como posso te ajudar?",
-       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }
+      id: "welcome",
+      role: "model",
+      text: "Olá! Sou o Assistente Inteligente Oficial do Mauricio. Fui treinado diretamente com o histórico de sua carreira, suas certificações de Android/Flutter e seus projetos de design system. Pode perguntar sobre minhas experiências na Kantar IBOPE ou Fundação Zerrenner, minhas competências técnicas ou projetos! Como posso te ajudar?",
+      timestamp: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    },
   ]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const starterChips = [
-    { text: "Qual a sua experiência na Fundação Zerrenner?", value: "Explique em detalhes seu histórico, conquistas e tecnologias na Fundação Zerrenner." },
-    { text: "Explique seu foco em Clean Architecture.", value: "Quais são as 3 camadas da Clean Architecture que você utiliza nos apps Android (Kotlin) e Flutter?" },
-    { text: "Quais tecnologias você mais domina?", value: "Quais são suas principais competências entre mobile e web (React/Flutter/Android)?" },
-    { text: "Como entrar em contato?", value: "Qual o seu melhor email e LinkedIn para contato?" }
+    {
+      text: "Qual a sua experiência na Fundação Zerrenner?",
+      value:
+        "Explique em detalhes seu histórico, conquistas e tecnologias na Fundação Zerrenner.",
+    },
+    {
+      text: "Explique seu foco em Clean Architecture.",
+      value:
+        "Quais são as 3 camadas da Clean Architecture que você utiliza nos apps Android (Kotlin) e Flutter?",
+    },
+    {
+      text: "Quais tecnologias você mais domina?",
+      value:
+        "Quais são suas principais competências entre mobile e web (React/Flutter/Android)?",
+    },
+    {
+      text: "Como entrar em contato?",
+      value: "Qual o seu melhor email e LinkedIn para contato?",
+    },
   ];
 
   useEffect(() => {
@@ -31,10 +49,13 @@ export default function AIChatBot() {
     if (!textToSend.trim() || loading) return;
 
     const userMessage: ChatMessage = {
-       id: `user-${Date.now()}`,
-       role: "user",
-       text: textToSend,
-       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      id: `user-${Date.now()}`,
+      role: "user",
+      text: textToSend,
+      timestamp: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -42,38 +63,52 @@ export default function AIChatBot() {
     setLoading(true);
 
     try {
+      let textResponse = "";
+      let isMock = false;
+
+      // Call the secure Express backend (server.ts) that reads process.env.GEMINI_API_KEY
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: textToSend,
-          // Extract text and role for the Gemini API call
-          history: messages.map((m) => ({ role: m.role, text: m.text }))
+          // Map roles cleanly to avoid any custom state leaking, and omit welcome questions
+          history: messages
+            .filter((m) => m.id !== "welcome" && m.id !== "welcome-reset")
+            .map((m) => ({ role: m.role, text: m.text })),
         }),
       });
 
       if (!response.ok) {
-         throw new Error("Erro na comunicação com a API");
+        throw new Error("Erro na comunicação com a API do servidor backend.");
       }
 
       const data = await response.json();
+      textResponse = data.text;
+      isMock = data.isMock;
 
       const assistantMessage: ChatMessage = {
-         id: `model-${Date.now()}`,
-         role: "model",
-         text: data.text,
-         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-         isMock: data.isMock
+        id: `model-${Date.now()}`,
+        role: "model",
+        text: textResponse,
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        isMock: isMock,
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (err: any) {
       console.error(err);
       const errorMessage: ChatMessage = {
-         id: `error-${Date.now()}`,
-         role: "model",
-         text: "Desculpe! Ocorreu um erro ao processar sua requisição no servidor do portfólio. Certifique-se de que a API Key externa esteja configurada no painel de Secrets ou que o servidor backend esteja respondendo adecuadamente.",
-         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        id: `error-${Date.now()}`,
+        role: "model",
+        text: "Desculpe! Ocorreu um erro ao processar sua requisição no servidor do portfólio. Certifique-se de que a API Key externa esteja configurada no painel de Secrets ou que o servidor backend esteja respondendo adequadamente.",
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -84,16 +119,22 @@ export default function AIChatBot() {
   const handleClearChat = () => {
     setMessages([
       {
-         id: "welcome-reset",
-         role: "model",
-         text: "Chat reiniciado! Pode me testar novamente com qualquer outra pergunta sobre o currículo ou especificações técnicas do Mauricio.",
-         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      }
+        id: "welcome-reset",
+        role: "model",
+        text: "Chat reiniciado! Pode me testar novamente com qualquer outra pergunta sobre o currículo ou especificações técnicas do Mauricio.",
+        timestamp: new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      },
     ]);
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col h-[560px]" id="aichat-container">
+    <div
+      className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 shadow-2xl flex flex-col h-[560px]"
+      id="aichat-container"
+    >
       {/* Bot Header */}
       <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
         <div className="flex items-center gap-3">
@@ -102,10 +143,18 @@ export default function AIChatBot() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-sm font-semibold text-slate-100">Mauricio Alexandre Digital Twin</h3>
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" title="Pronto para conversar"></span>
+              <h3 className="text-sm font-semibold text-slate-100">
+                Mauricio Alexandre Digital Twin
+              </h3>
+              <span
+                className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
+                title="Pronto para conversar"
+              ></span>
             </div>
-            <p className="text-[10px] text-slate-400">Inteligência Artificial (Gemini 3.5 Assistant) especializada no currículo</p>
+            <p className="text-[10px] text-slate-400">
+              Inteligência Artificial (Gemini 3.5 Assistant) especializada no
+              currículo
+            </p>
           </div>
         </div>
 
@@ -128,28 +177,39 @@ export default function AIChatBot() {
               key={msg.id}
               className={`flex gap-3 max-w-[85%] ${isModel ? "self-start" : "ml-auto flex-row-reverse"}`}
             >
-              <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-slate-200 border ${
-                isModel
-                  ? "bg-slate-800 border-slate-700 text-violet-400"
-                  : "bg-violet-600 border-violet-500 text-slate-100"
-              }`}>
-                {isModel ? <Bot className="w-3.5 h-3.5" /> : <User className="w-3.5 h-3.5" />}
+              <div
+                className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-slate-200 border ${
+                  isModel
+                    ? "bg-slate-800 border-slate-700 text-violet-400"
+                    : "bg-violet-600 border-violet-500 text-slate-100"
+                }`}
+              >
+                {isModel ? (
+                  <Bot className="w-3.5 h-3.5" />
+                ) : (
+                  <User className="w-3.5 h-3.5" />
+                )}
               </div>
 
               <div className="flex flex-col space-y-1">
-                <div className={`p-3 rounded-2xl leading-relaxed text-slate-200 ${
-                  isModel
-                    ? "bg-slate-950 border border-slate-800/80 rounded-tl-none"
-                    : "bg-slate-800 rounded-tr-none text-right"
-                }`}>
+                <div
+                  className={`p-3 rounded-2xl leading-relaxed text-slate-200 ${
+                    isModel
+                      ? "bg-slate-950 border border-slate-800/80 rounded-tl-none"
+                      : "bg-slate-800 rounded-tr-none text-right"
+                  }`}
+                >
                   <p className="whitespace-pre-wrap">{msg.text}</p>
                   {msg.isMock && (
                     <span className="text-[9px] text-amber-500 block mt-1.5 font-mono">
-                      ⚠️ Modo offline (fallback ativo sem chave Gemini configurada).
+                      ⚠️ Modo offline (fallback ativo sem chave Gemini
+                      configurada).
                     </span>
                   )}
                 </div>
-                <span className={`text-[9.5px] text-slate-500 font-mono tracking-tight ${isModel ? "" : "text-right"}`}>
+                <span
+                  className={`text-[9.5px] text-slate-500 font-mono tracking-tight ${isModel ? "" : "text-right"}`}
+                >
                   {msg.timestamp}
                 </span>
               </div>
@@ -175,7 +235,8 @@ export default function AIChatBot() {
       {messages.length === 1 && (
         <div className="mb-4">
           <span className="text-[10px] text-slate-400 font-medium mb-2 block flex items-center gap-1">
-            <HelpCircle className="w-3.5 h-3.5 text-purple-400" /> Perguntas Frequentes :
+            <HelpCircle className="w-3.5 h-3.5 text-purple-400" /> Perguntas
+            Frequentes :
           </span>
           <div className="flex flex-wrap gap-2">
             {starterChips.map((chip, idx) => (
