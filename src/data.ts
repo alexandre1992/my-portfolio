@@ -7,9 +7,18 @@ export const TIMELINE_DATA: TimelineItem[] = [
     role: "Mobile Developer (Mobile & Frontend)",
     period: "abril de 2021 - Present (5 anos)",
     location: "São Paulo, SP, Brasil",
-    description: "Sólida experiência em desenvolvimento mobile e frontend web, especializado na criação de aplicativos nativos e híbridos de alta performance.",
+    description:
+      "Sólida experiência em desenvolvimento mobile e frontend web, especializado na criação de aplicativos nativos e híbridos de alta performance.",
     type: "mobile",
-    tags: ["Kotlin", "Jetpack Compose", "Flutter", "BLoC", "React", "TypeScript", "Azure DevOps"],
+    tags: [
+      "Kotlin",
+      "Jetpack Compose",
+      "Flutter",
+      "BLoC",
+      "React",
+      "TypeScript",
+      "Azure DevOps",
+    ],
     achievements: [
       "Desenvolvimento de aplicativos Android nativos em Kotlin/Java, utilizando Jetpack Compose, Activities, Services, ContentProviders, JobServices e Workers.",
       "Manutenção e refatoração de aplicativos legados complexos seguindo as diretrizes oficiais do Google e otimização de performance.",
@@ -18,8 +27,8 @@ export const TIMELINE_DATA: TimelineItem[] = [
       "Desenvolvimento de aplicações web modernas com React.js e TypeScript, Next.js para Server-Side Rendering (SSR).",
       "Implementação de Design Systems personalizados com foco em acessibilidade, usabilidade e componentização reaproveitável.",
       "Configuração de pipelines automatizados de CI/CD no Azure DevOps para compilação, testes estáticos com SonarQube e deploy automático na PlayStore.",
-      "Integração contínua e telemetria avançada de bugs e comportamento usando DataDog e Crashlytics."
-    ]
+      "Integração contínua e telemetria avançada de bugs e comportamento usando DataDog e Crashlytics.",
+    ],
   },
   {
     id: "kantar-ibope",
@@ -28,15 +37,24 @@ export const TIMELINE_DATA: TimelineItem[] = [
     period: "junho de 2018 - abril de 2021 (2 anos 11 meses)",
     location: "São Paulo, SP, Brasil",
     type: "embedded",
-    description: "Android developer focado em sistemas embarcados (Android, Linux e hardware baseado em Raspberry Pi).",
-    tags: ["Android Embedded", "Java", "Kotlin", "Bluetooth BLE", "Gradle", "JUnit", "Azure DevOps"],
+    description:
+      "Android developer focado em sistemas embarcados (Android, Linux e hardware baseado em Raspberry Pi).",
+    tags: [
+      "Android Embedded",
+      "Java",
+      "Kotlin",
+      "Bluetooth BLE",
+      "Gradle",
+      "JUnit",
+      "Azure DevOps",
+    ],
     achievements: [
       "Integração de sensores e periféricos industriais via protocolos de comunicação Bluetooth BLE (Bluetooth Low Energy).",
       "Desenvolvimento de componentes nativos de baixo nível (Android Application, Activity, Service, ContentProvider, JobService, Worker).",
       "Gerenciamento rigoroso do ciclo de vida de componentes seguindo as diretrizes do Google (LifeCycle) para ambientes embarcados ininterruptos (24/7).",
       "Implementação de rotinas robustas de build automatizado via Gradle e pipelines de entregas contínuas com Azure DevOps.",
-      "Escrita de suites de testes unitários abrangentes com JUnit para assegurar estabilidade de APIs e da camada de rede."
-    ]
+      "Escrita de suites de testes unitários abrangentes com JUnit para assegurar estabilidade de APIs e da camada de rede.",
+    ],
   },
   {
     id: "oz-tech",
@@ -45,13 +63,14 @@ export const TIMELINE_DATA: TimelineItem[] = [
     period: "julho de 2016 - junho de 2018 (2 anos)",
     location: "Itaim Bibi - SP, Brasil",
     type: "mobile",
-    description: "Desenvolvedor Android nativo responsável por conceber, refatorar e publicar aplicações móveis.",
+    description:
+      "Desenvolvedor Android nativo responsável por conceber, refatorar e publicar aplicações móveis.",
     tags: ["Java", "Android Studio", "Material Design", "REST APIs", "Git"],
     achievements: [
       "Desenvolvimento de aplicações Android do zero em Java utilizando Android Studio.",
       "Integração de APIs RESTful usando bibliotecas consagradas de networking e concorrência nativa.",
-      "Aplicação de boas práticas de design visual respeitando as especificações originais do Material Design."
-    ]
+      "Aplicação de boas práticas de design visual respeitando as especificações originais do Material Design.",
+    ],
   },
   {
     id: "coreware",
@@ -60,13 +79,20 @@ export const TIMELINE_DATA: TimelineItem[] = [
     period: "novembro de 2012 - março de 2016 (3 anos 5 meses)",
     location: "Mooca - SP, Brasil",
     type: "other",
-    description: "Atuação no desenvolvimento e manutenção de sistemas corporativos ERP e aplicações web legadas.",
-    tags: ["Delphi 7", "Intraweb", "Oracle 10g", "JavaScript", "Enterprise Architect"],
+    description:
+      "Atuação no desenvolvimento e manutenção de sistemas corporativos ERP e aplicações web legadas.",
+    tags: [
+      "Delphi 7",
+      "Intraweb",
+      "Oracle 10g",
+      "JavaScript",
+      "Enterprise Architect",
+    ],
     achievements: [
       "Desenvolvimento de telas corporativas e regras de negócio com Delphi 7 Intraweb e modelagem de banco de dados Oracle 10g.",
       "Validações ricas no lado do cliente utilizando JavaScript baunilha.",
-      "Modelagem conceitual e projeto de banco de dados no Enterprise Architect."
-    ]
+      "Modelagem conceitual e projeto de banco de dados no Enterprise Architect.",
+    ],
   },
   {
     id: "sitel-support",
@@ -75,13 +101,14 @@ export const TIMELINE_DATA: TimelineItem[] = [
     period: "abril de 2012 - novembro de 2012 (8 meses)",
     location: "Mooca - SP, Brasil",
     type: "other",
-    description: "Suporte de TI especializado focado em entregar soluções rápidas a clientes exigentes.",
+    description:
+      "Suporte de TI especializado focado em entregar soluções rápidas a clientes exigentes.",
     tags: ["Suporte Dell", "Acesso Remoto", "Redes", "Atendimento"],
     achievements: [
       "Atendimento técnico especializado aos usuários finais corporativos e residenciais da Dell.",
-      "Resolução de problemas de infraestrutura, hardware, sistemas operacionais e conectividade via chat, telefone e ferramentas de suporte remoto."
-    ]
-  }
+      "Resolução de problemas de infraestrutura, hardware, sistemas operacionais e conectividade via chat, telefone e ferramentas de suporte remoto.",
+    ],
+  },
 ];
 
 export const CERTIFICATIONS_DATA: Certification[] = [
@@ -94,61 +121,121 @@ export const CERTIFICATIONS_DATA: Certification[] = [
     issuer: "Alura",
   },
   {
-    title: "Jetpack Compose: criando uma interface reativa e dinâmica no Android",
+    title:
+      "Jetpack Compose: criando uma interface reativa e dinâmica no Android",
     issuer: "Alura",
   },
   {
-    title: "Testes de unidade e Widget com Mocks: boas práticas de arquitetura em Flutter",
+    title:
+      "Testes de unidade e Widget com Mocks: boas práticas de arquitetura em Flutter",
     issuer: "Flutter Community / Alura",
-  }
+  },
 ];
 
 export const PROJECTS_DATA: ProjectDetail[] = [
   {
     title: "App Conecta 2.0 (Fundação Zerrenner)",
-    description: "Aplicativo corporativo de grande escala que integra informações de planos de benefícios de saúde, educação, prontuários eletrônicos e portal do beneficiário.",
+    description:
+      "Aplicativo corporativo de grande escala que integra informações de planos de benefícios de saúde, educação, prontuários eletrônicos e portal do beneficiário.",
     platform: "Android",
-    techStack: ["Kotlin", "Jetpack Compose", "Clean Architecture", "Coroutines", "Dagger Hilt", "Room", "Retrofit"],
+    techStack: [
+      "Kotlin",
+      "Jetpack Compose",
+      "Clean Architecture",
+      "Coroutines",
+      "Dagger Hilt",
+      "Room",
+      "Retrofit",
+    ],
     features: [
       "Arquitetura modular em 3 camadas (Presentation, Domain, Data).",
       "UI totalmente declarativa em Jetpack Compose com fluxos reativos em StateFlow.",
-      "Otimização extrema de performance de listagem com Lazy Columns e renderização condicional refinada."
-    ]
+      "Otimização extrema de performance de listagem com Lazy Columns e renderização condicional refinada.",
+    ],
   },
   {
     title: "Design System Beneficiário (Fahz AlexandreDS)",
-    description: "Criação de um repositório centralizado de componentes web de alta acessibilidade para unificar todos os projetos da instituição.",
+    description:
+      "Criação de um repositório centralizado de componentes web de alta acessibilidade para unificar todos os projetos da instituição.",
     platform: "React",
-    techStack: ["React.js", "TypeScript", "Tailwind CSS", "Storybook", "React Query", "Jest"],
+    techStack: [
+      "React.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Storybook",
+      "React Query",
+      "Jest",
+    ],
     features: [
       "Biblioteca de botões, modais, formulários, grids responsivos e alertas de status com validações integradas.",
       "Garantia estrita de contraste AAA e navegação por teclado (WCAG compliance).",
-      "Documentação viva no Storybook com testes de regressão visual automatizados."
-    ]
+      "Documentação viva no Storybook com testes de regressão visual automatizados.",
+    ],
   },
   {
     title: "Aplicação Híbrida de Atendimento (Flutter)",
-    description: "App multiplataforma veloz para preenchimento de formulários de saúde remota offline, sincronização inteligente em segundo plano.",
+    description:
+      "App multiplataforma veloz para preenchimento de formulários de saúde remota offline, sincronização inteligente em segundo plano.",
     platform: "Flutter",
-    techStack: ["Dart", "Flutter SDK", "BLoC Pattern", "Mocktail", "Hive DB", "Dio"],
+    techStack: [
+      "Dart",
+      "Flutter SDK",
+      "BLoC Pattern",
+      "Mocktail",
+      "Hive DB",
+      "Dio",
+    ],
     features: [
       "Gerenciamento de estado de alta previsibilidade com BLoC.",
       "Suporte offline robusto com sincronização em JobServices nativos no Android e no iOS Background Tasks.",
-      "Testes refinados de cobertura unitária mockando sensores e redes instáveis."
-    ]
-  }
+      "Testes refinados de cobertura unitária mockando sensores e redes instáveis.",
+    ],
+  },
 ];
 
 export const LANGUAGES_DATA = [
   { name: "Português", level: "Nativo" },
-  { name: "Inglês", level: "Profissional Técnico / Fluência de Leitura e Escrita" }
+  { name: "Inglês", level: "Intermediário" },
 ];
 
 export const TECHNICAL_SKILLS = {
-  mobile: ["Android SDK", "Kotlin / Java", "Jetpack Compose", "Flutter / Dart", "BLoC Pattern", "Android Jetpack (Lifecycle, WorkManager, Services)", "Gradle Build System", "Activities & Content Providers"],
-  frontend: ["React.js", "TypeScript", "Next.js (SSR)", "Custom Design Systems", "React Query (TanStack)", "Zod / Schema Validation", "Tailwind CSS", "Custom Hooks", "State Management (Zustand, Context)"],
-  devops: ["Azure DevOps", "CI/CD Pipelines", "SonarQube Quality Gate", "Git & GitFlow", "Docker", "Crashlytics", "DataDog Monitoring"],
-  architecture: ["Clean Architecture (3 Layers)", "Domain-Driven Design (DDD) basics", "SOLID Principles", "MVVM (Android) & BLoC (Flutter)", "Unit Testing (JUnit, Mocktail, Mockito)"]
+  mobile: [
+    "Android SDK",
+    "Kotlin / Java",
+    "Jetpack Compose",
+    "Flutter / Dart",
+    "BLoC Pattern",
+    "Android Jetpack (Lifecycle, WorkManager, Services)",
+    "Gradle Build System",
+    "Activities & Content Providers",
+  ],
+  frontend: [
+    "React.js",
+    "TypeScript",
+    "Next.js (SSR)",
+    "Custom Design Systems",
+    "React Query (TanStack)",
+    "Zod / Schema Validation",
+    "Tailwind CSS",
+    "Custom Hooks",
+    "State Management (Zustand, Context)",
+  ],
+  devops: [
+    "Azure DevOps",
+    "CI/CD Pipelines",
+    "SonarQube Quality Gate",
+    "Git & GitFlow",
+    "Docker",
+    "Crashlytics",
+    "DataDog Monitoring",
+  ],
+  architecture: [
+    "Clean Architecture (3 Layers)",
+    "Domain-Driven Design (DDD) basics",
+    "SOLID Principles",
+    "MVVM (Android) & BLoC (Flutter)",
+    "Unit Testing (JUnit, Mocktail, Mockito)",
+  ],
 };
 
 // Clean Architecture Code examples for Interactive Simulator
@@ -236,7 +323,7 @@ class UserRepositoryImpl @Inject constructor(
             }
         }
     }
-}`
+}`,
   },
   flutter: {
     presentation: `// BLoC State Management in Flutter Presentation Layer
@@ -307,6 +394,6 @@ class ProfileRepositoryImpl implements ProfileRepository {
       rethrow;
     }
   }
-}`
-  }
+}`,
+  },
 };

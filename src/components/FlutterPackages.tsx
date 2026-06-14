@@ -35,8 +35,8 @@ const PACKAGES_DATA: PackageData[] = [
     version: "2.0.0",
     description:
       "Integração do modelo on-device Gemini Nano do Google para aplicações Flutter. Permite executar processamento de Linguagem Natural (NLP) localmente com baixíssima latência, privacidade absoluta e sem custos de rede ou chaves de API.",
-    pubPoints: 135,
-    likes: 48,
+    pubPoints: 160,
+    likes: 1,
     popularity: "94%",
     githubUrl: "https://github.com/alexandre1992/flutter_gemini_nano",
     pubUrl: "https://pub.dev/packages/flutter_gemini_nano",
@@ -233,9 +233,9 @@ class _GeminiNanoExampleState extends State<GeminiNanoExample> {
     name: "device_context_plus",
     version: "1.0.3",
     description:
-      "Extensão de hardware de alto nível para extração inteligente e reativa de contextos operacionais, telemetria de consumo energético, estado térmico detalhado e ciclo de vida em aplicações Flutter.",
-    pubPoints: 125,
-    likes: 31,
+      "Um plugin Flutter que fornece contexto aprimorado do dispositivo e da aplicação para análises, depuração e insights em tempo de execução.",
+    pubPoints: 160,
+    likes: 2,
     popularity: "91%",
     githubUrl: "https://github.com/alexandre1992/device_context_plus",
     pubUrl: "https://pub.dev/packages/device_context_plus",

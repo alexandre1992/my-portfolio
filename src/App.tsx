@@ -28,6 +28,7 @@ import {
   ChevronRight,
   Sparkles,
   PhoneCall,
+  GraduationCap,
 } from "lucide-react";
 
 export default function App() {
@@ -272,75 +273,77 @@ export default function App() {
                       Criando ecossistemas móveis de excelência.
                     </h3>
                     <p className="text-indigo-100 text-[11.5px] opacity-90 leading-relaxed">
-                      Gerenciamento de monorepos complexos para soluções
-                      corporativas e de saúde suplementar. Alta performance,
-                      escalabilidade e arquiteturas orientadas a testes
-                      estritos.
+                      Desenvolvimento mobile com Flutter e Kotlin, criando
+                      aplicações de alta performance, escaláveis e com
+                      arquiteturas orientadas a testes para soluções
+                      corporativas.
                     </p>
                   </div>
 
-                  {/* Monorepo Architecture Box (2x1) */}
+                  {/* Mobile Architecture & Engineering Box (2x1) */}
                   <div className="md:col-span-2 bg-slate-900 border border-slate-800 rounded-3xl p-5 overflow-hidden relative">
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-3">
-                          Monorepo Conecta
+                          Mobile Engineering Core
                         </h3>
-                        <div className="flex gap-4 font-mono text-[10.5px] text-indigo-400">
-                          <div className="flex flex-col gap-0.5">
+                        <div className="flex gap-8 font-mono text-[10.5px] text-indigo-400">
+                          <div className="flex flex-col gap-1">
                             <span className="text-slate-500 text-[9px] uppercase font-bold">
-                              /apps
+                              Native & Cross-Platform
                             </span>
-                            <span className="pl-2 border-l border-slate-800 text-slate-300">
-                              - beneficiario
+                            <span className="text-slate-300">
+                              📱 Android (Kotlin/Java)
                             </span>
-                            <span className="pl-2 border-l border-slate-800 text-slate-300">
-                              - admin
-                            </span>
-                            <span className="pl-2 border-l border-slate-800 text-slate-300">
-                              - prontuario
+                            <span className="text-slate-300">
+                              🎯 Flutter (BLoC Pattern)
                             </span>
                           </div>
-                          <div className="flex flex-col gap-0.5">
+                          <div className="flex flex-col gap-1">
                             <span className="text-slate-500 text-[9px] uppercase font-bold">
-                              /libs
+                              Tech Stack & Quality
                             </span>
-                            <span className="pl-2 border-l border-slate-800 text-indigo-300">
-                              - design-system
+                            <span className="text-indigo-300">
+                              🏗️ Clean Architecture
                             </span>
-                            <span className="pl-2 border-l border-slate-800 text-indigo-300">
-                              - services
+                            <span className="text-indigo-300">
+                              🧪 Unit & Widget Testing
                             </span>
-                            <span className="pl-2 border-l border-slate-800 text-indigo-300">
-                              - utilities
+                            <span className="text-indigo-300">
+                              🚀 CI/CD Automation
                             </span>
                           </div>
                         </div>
                       </div>
                       <div className="bg-indigo-500/10 p-2.5 rounded-xl border border-indigo-500/10 shrink-0 text-right">
                         <p className="text-[10px] font-bold text-indigo-400">
-                          CI/CD Ativo
+                          13+ Years
                         </p>
                         <p className="text-[9px] text-slate-400 font-mono mt-0.5">
-                          Playwright + Jest
+                          Experience
                         </p>
                       </div>
                     </div>
                   </div>
 
-                  {/* Core Stack (1x1 style) */}
+                  {/* Android Specialist (1x1 style) */}
                   <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5 flex flex-col justify-between">
                     <div>
                       <h3 className="text-[10px] uppercase tracking-widest text-slate-500 font-bold mb-2">
-                        UI Engine
+                        Android Specialist
                       </h3>
                       <p className="text-[11px] text-slate-300 leading-normal">
-                        Fahz Design System maintainer. Componentes atômicos com
-                        linting estrito e Storybook.
+                        Foco em performance e componentes Jetpack. Expertise em
+                        manutenção de apps complexos e sistemas embarcados.
                       </p>
                     </div>
-                    <div className="w-full h-1 bg-slate-950 rounded-full overflow-hidden mt-3">
-                      <div className="w-4/5 h-full bg-indigo-500"></div>
+                    <div className="flex gap-2 mt-4">
+                      <span className="px-2 py-1 rounded bg-slate-800 text-[9px] text-indigo-300 border border-slate-700">
+                        Jetpack
+                      </span>
+                      <span className="px-2 py-1 rounded bg-slate-800 text-[9px] text-indigo-300 border border-slate-700">
+                        Gradle
+                      </span>
                     </div>
                   </div>
 
@@ -542,40 +545,64 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Right Column: Key languages */}
+                  {/* Right Column: Education, Languages & Methodology */}
                   <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4 shadow-sm">
                     <h3 className="text-sm font-bold text-slate-250 flex items-center gap-2 border-b border-slate-800/80 pb-3">
-                      <Globe className="w-4 h-4 text-indigo-400" />
-                      Idiomas & Especialidades
+                      <GraduationCap className="w-4 h-4 text-indigo-400" />
+                      Formação & Especialidades
                     </h3>
 
                     <div className="space-y-4">
-                      {LANGUAGES_DATA.map((lang, idx) => (
-                        <div
-                          key={idx}
-                          className="flex justify-between items-center text-xs border-b border-slate-850 pb-2.5"
-                        >
-                          <span className="font-bold text-slate-300">
-                            {lang.name}
-                          </span>
-                          <span className="text-[10px] font-mono bg-slate-950 px-2.5 py-0.5 rounded-md text-indigo-300 border border-slate-850">
-                            {lang.level}
-                          </span>
+                      {/* Educação */}
+                      <div className="space-y-2">
+                        <div className="bg-slate-950/50 p-3 rounded-2xl border border-slate-850/60">
+                          <h4 className="text-[11.5px] font-bold text-slate-200">
+                            Bacharelado em Sistemas de Informação
+                          </h4>
+                          <p className="text-[10px] text-slate-500 font-semibold">
+                            Faculdade Impacta Tecnologia | 2013-2016
+                          </p>
                         </div>
-                      ))}
+                        <div className="bg-slate-950/50 p-3 rounded-2xl border border-slate-850/60">
+                          <h4 className="text-[11.5px] font-bold text-slate-200">
+                            Técnico em Informática
+                          </h4>
+                          <p className="text-[10px] text-slate-500 font-semibold">
+                            ETEC Itaquera | 2010-2011
+                          </p>
+                        </div>
+                      </div>
 
-                      {/* Summary call of his high design architecture */}
+                      {/* Idiomas */}
+                      <div className="space-y-2">
+                        <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-2">
+                          Idiomas
+                        </h4>
+                        {LANGUAGES_DATA.map((lang, idx) => (
+                          <div
+                            key={idx}
+                            className="flex justify-between items-center text-xs border-b border-slate-850 pb-2"
+                          >
+                            <span className="font-bold text-slate-300">
+                              {lang.name}
+                            </span>
+                            <span className="text-[10px] font-mono bg-slate-950 px-2.5 py-0.5 rounded-md text-indigo-300 border border-slate-850">
+                              {lang.level}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Metodologia de Trabalho */}
                       <div className="p-4 bg-indigo-950/10 border border-indigo-900/15 rounded-2xl space-y-2 mt-2">
                         <span className="text-[9px] font-mono uppercase text-indigo-400 font-bold tracking-widest flex items-center gap-1.5">
                           <Sparkles className="w-3 h-3 animate-spin" />{" "}
-                          Metodologia de Trabalho
+                          Metodologia
                         </span>
                         <p className="text-[10.5px] text-slate-300 leading-relaxed font-semibold">
                           Forte vivência em equipes ágeis, aplicando GitFlow
                           rigoroso, code reviews com automação no SonarQube e
-                          esteiras integradas de CI/CD via Azure DevOps que
-                          encurtam ciclos de lançamento com alta cobertura de
-                          testes.
+                          esteiras integradas de CI/CD via Azure DevOps.
                         </p>
                       </div>
                     </div>
