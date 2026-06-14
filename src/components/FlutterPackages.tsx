@@ -239,12 +239,13 @@ class _GeminiNanoExampleState extends State<GeminiNanoExample> {
     popularity: "91%",
     githubUrl: "https://github.com/alexandre1992/device_context_plus",
     pubUrl: "https://pub.dev/packages/device_context_plus",
-    platforms: ["Android", "iOS", "macOS", "Windows", "Linux"],
+    platforms: ["Android", "iOS"],
     features: [
-      "Verificação unificada e centralizada de status de saúde e parâmetros refinados de performance do sistema.",
-      "Controle reativo inteligente de throttling térmico e modos de economia de bateria no aparelho.",
-      "Extração otimizada de dimensões físicas e DPI real sem depender de herança de BuildContext.",
-      "Telemetria integrada e segura de bateria, rede ativa e latência de memória de frotas móveis.",
+      "ID da Equipe iOS (recurso exclusivo)",
+      "Origem da instalação no Android (Play Store, APK, etc.)",
+      "Informações do dispositivo e do sistema operacional",
+      "Localidade (idioma/região) e fuso horário",
+      "API estruturada e tipada",
     ],
     installation: "flutter pub add device_context_plus",
     exampleCode: `import 'package:device_context_plus/device_context_plus.dart';
