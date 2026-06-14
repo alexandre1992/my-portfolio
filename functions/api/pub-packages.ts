@@ -12,7 +12,12 @@ export const onRequestGet = async (context: any) => {
     let popularity = defaultPopularity;
 
     try {
-      const infoRes = await fetch(`https://pub.dev/api/packages/${pkgName}`);
+      const headers = {
+        "User-Agent": "Portfolio Alexandre1992 (https://alexandre1992.dev.br/)",
+      };
+      const infoRes = await fetch(`https://pub.dev/api/packages/${pkgName}`, {
+        headers,
+      });
       if (infoRes.ok) {
         const infoJson = (await infoRes.json()) as any;
         if (infoJson?.latest?.version) version = infoJson.latest.version;
@@ -20,6 +25,7 @@ export const onRequestGet = async (context: any) => {
 
       const metricsRes = await fetch(
         `https://pub.dev/api/packages/${pkgName}/metrics`,
+        { headers },
       );
       if (metricsRes.ok) {
         const metricsJson = (await metricsRes.json()) as any;
