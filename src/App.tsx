@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// @ts-ignore
+import meProfile from "./assets/me.png";
+import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   TIMELINE_DATA,
@@ -56,8 +58,12 @@ export default function App() {
           {/* Top visual Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-tr from-sky-500 to-emerald-400 rounded-xl flex items-center justify-center font-bold text-xl shadow-lg shadow-sky-500/15 text-slate-950">
-                M
+              <div className="w-10 h-10 rounded-xl overflow-hidden border border-slate-700 shadow-lg shadow-sky-500/15">
+                <img
+                  src={meProfile}
+                  alt="Mauricio Alexandre"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <h1 className="text-sm font-bold tracking-tight leading-none">
@@ -67,12 +73,6 @@ export default function App() {
                   alexandre1992.dev.br
                 </p>
               </div>
-            </div>
-            <div className="flex flex-col items-end gap-1">
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[9px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span>
-                Disponível
-              </span>
             </div>
           </div>
 
@@ -618,7 +618,40 @@ export default function App() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.15 }}
                 key="architecture-tab"
+                className="space-y-6" // Adicionado space-y-6 para separar o banner do visualizador
               >
+                <div className="relative overflow-hidden bg-gradient-to-br from-indigo-950/80 via-slate-900 to-slate-900 border border-indigo-500/30 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl shadow-indigo-900/20 group">
+                  {/* Efeito de brilho de fundo no hover */}
+                  <div className="absolute -right-20 -top-20 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none transition-all group-hover:bg-indigo-500/20"></div>
+
+                  <div className="space-y-3 z-10 w-full md:w-2/3">
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-[10px] font-bold uppercase tracking-widest">
+                      <Sparkles className="w-3 h-3" />
+                      Acelere seu Setup
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-black text-slate-100 leading-tight">
+                      Flutter Clean Architecture Template
+                    </h3>
+                    <p className="text-sm text-slate-400 leading-relaxed font-medium max-w-xl">
+                      Pule o código repetitivo e economize mais de 20 horas de
+                      configuração. Template pronto para produção estruturado
+                      com Clean Architecture, BLoC e integrações isoladas para
+                      Dart 3.
+                    </p>
+                  </div>
+
+                  <div className="z-10 shrink-0 w-full md:w-auto">
+                    <a
+                      href="https://alexandrewind7.gumroad.com/l/ifjae"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full md:w-auto flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white px-8 py-4 rounded-2xl font-bold transition-all shadow-lg shadow-indigo-600/25 hover:shadow-indigo-500/40 hover:-translate-y-0.5"
+                    >
+                      Obter Template Clean Architecture
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
                 <CleanArchVisualizer />
               </motion.div>
             )}
