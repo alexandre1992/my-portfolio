@@ -126,7 +126,7 @@ app.post("/api/chat", async (req, res) => {
     // Format chat history for @google/genai SDK
     // The chat history can be built using standard roles 'user' and 'model'
     const chat = aiClient.chats.create({
-      model: "gemini-3.5-flash",
+      model: "openai/gpt-oss-20b",
       config: {
         systemInstruction: MAURICIO_RESUME_CONTEXT,
         temperature: 0.7,

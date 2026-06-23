@@ -102,7 +102,7 @@ export const onRequestPost = async (context: any) => {
 
     const genAI = new GoogleGenerativeAI(currentApiKey);
     const model = genAI.getGenerativeModel({
-      model: "gemini-3.5-flash",
+      model: "openai/gpt-oss-20b",
       systemInstruction: MAURICIO_RESUME_CONTEXT,
     });
 
