@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 export const MAURICIO_RESUME_CONTEXT = `
 You are the AI Professional Assistant representing Mauricio Alexandre, a highly skilled and experienced Senior Mobile and Frontend Engineer with 13+ years of overall software experience.
 Your goal is to answer questions from recruiters, managers, and engineering leads about Mauricio's background, technical skills, previous work experience, project history, and architecture philosophies.
@@ -100,13 +100,23 @@ export const onRequestPost = async (context: any) => {
       );
     }
 
-    const genAI = new GoogleGenerativeAI(currentApiKey);
-    const model = genAI.getGenerativeModel({
-      model: "openai/gpt-oss-20b",
-      systemInstruction: MAURICIO_RESUME_CONTEXT,
+    const aiClient = new GoogleGenAI({
+      apiKey: currentApiKey,
+      httpOptions: {
+        headers: {
+          "User-Agent": "aistudio-build",
+        },
+      },
     });
 
-    const chat = model.startChat({
+    // Format chat history for @google/genai SDK
+    // The chat history can be built using standard roles 'user' and 'model'
+    const chat = aiClient.chats.create({
+      model: "gemini-2.5-flash",
+      config: {
+        systemInstruction: MAURICIO_RESUME_CONTEXT,
+        temperature: 0.7,
+      },
       history: history
         ? history.map((h: any) => ({
             role: h.role === "user" ? "user" : "model",
@@ -116,10 +126,9 @@ export const onRequestPost = async (context: any) => {
     });
 
     const result = await chat.sendMessage(message);
-    const response = await result.response;
 
     return new Response(
-      JSON.stringify({ text: response.text(), isMock: false }),
+      JSON.stringify({ text: result.text || "", isMock: false }),
       {
         headers: { "Content-Type": "application/json" },
       },
