@@ -152,7 +152,7 @@ export default function AIChatBot() {
               ></span>
             </div>
             <p className="text-[10px] text-slate-400">
-              Inteligência Artificial (Gemini 3.5 Assistant) especializada no
+              Inteligência Artificial (Gemini 2.5 Assistant) especializada no
               currículo
             </p>
           </div>

@@ -126,7 +126,7 @@ app.post("/api/chat", async (req, res) => {
     // Format chat history for @google/genai SDK
     // The chat history can be built using standard roles 'user' and 'model'
     const chat = aiClient.chats.create({
-      model: "openai/gpt-oss-20b",
+      model: "gemini-2.5-flash",
       config: {
         systemInstruction: MAURICIO_RESUME_CONTEXT,
         temperature: 0.7,
@@ -145,10 +145,19 @@ app.post("/api/chat", async (req, res) => {
 
     res.json({ text: result.text || "", isMock: false });
   } catch (error: any) {
-    console.error("Gemini API Error:", error);
-    res.status(500).json({
-      error: "Failed to communicate with Gemini AI Assistant.",
-      details: error.message,
+    console.error("Gemini API Error, switching to fallback:", error);
+
+    // Fallback offline caso o Gemini falhe
+    const fallbackResponses = [
+      "No momento estou operando em modo de contingência. Posso confirmar que o Mauricio é especialista em Android (Kotlin) e Flutter, mas a conexão com o motor de IA está temporariamente indisponível.",
+      "Desculpe a interrupção. O sistema de IA está offline, mas você pode ver meu portfólio completo em alexandre1992.dev.br ou entrar em contato pelo LinkedIn.",
+    ];
+
+    res.status(200).json({
+      text: fallbackResponses[
+        Math.floor(Math.random() * fallbackResponses.length)
+      ],
+      isMock: true,
     });
   }
 });
