@@ -93,12 +93,12 @@ export async function onRequestPost(context: any) {
     }
 
     if (!currentApiKey || currentApiKey === "MY_GEMINI_API_KEY") {
-      const mockResponses = [
+      const fallbackResponses = [
         "No momento estou operando em modo de contingência. Posso confirmar que o Mauricio é especialista em Android (Kotlin) e Flutter, mas a conexão com o motor de IA está temporariamente indisponível.",
         "Desculpe a interrupção. O sistema de IA está offline, mas você pode ver meu portfólio completo em alexandre1992.dev.br ou entrar em contato pelo LinkedIn.",
       ];
       const responseText =
-        mockResponses[Math.floor(Math.random() * mockResponses.length)];
+        fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
 
       return new Response(
         JSON.stringify({ text: responseText, isMock: true }),
@@ -141,13 +141,20 @@ export async function onRequestPost(context: any) {
   } catch (error: any) {
     console.error("Gemini API Error:", error);
 
+    const fallbackResponses = [
+      "No momento estou operando em modo de contingência. Posso confirmar que o Mauricio é especialista em Android (Kotlin) e Flutter, mas a conexão com o motor de IA está temporariamente indisponível.",
+      "Desculpe a interrupção. O sistema de IA está offline, mas você pode ver meu portfólio completo em alexandre1992.dev.br ou entrar em contato pelo LinkedIn.",
+    ];
+    const responseText =
+      fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
+
     return new Response(
       JSON.stringify({
-        text: "Desculpe! Ocorreu um erro no servidor ao tentar se comunicar com o motor de IA.",
+        text: responseText,
         isMock: true,
       }),
       {
-        status: 200, // Retornamos 200 com isMock para o frontend lidar de forma elegante
+        status: 200,
         headers: { "Content-Type": "application/json" },
       },
     );
