@@ -194,17 +194,24 @@ export default function App() {
             Carreira & Experiência
           </button>
 
+          {/* BOTÃO CORRIGIDO AQUI: Adicionado relative e overflow-hidden na classe principal */}
           <button
             onClick={() => setActiveTab("architecture")}
-            className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer relative overflow-hidden ${
               activeTab === "architecture"
                 ? "bg-gradient-to-r from-sky-600 to-emerald-600 text-white shadow-lg shadow-sky-950/40"
                 : "text-slate-400 hover:text-slate-200 hover:bg-slate-950"
             }`}
             id="tab-btn-architecture"
           >
-            <Layers className="w-3.5 h-3.5" />
-            Clean Architecture
+            <span className="absolute inset-0 bg-indigo-500/20 animate-pulse pointer-events-none"></span>
+            <Layers className="w-3.5 h-3.5 relative z-10" />
+            <span className="relative z-10">Clean Architecture</span>
+
+            <span className="relative flex h-2 w-2 ml-2 z-10">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.9)]"></span>
+            </span>
           </button>
 
           <button
@@ -231,10 +238,6 @@ export default function App() {
           >
             <Bot className="w-3.5 h-3.5" />
             Gêmeo IA Chatbot
-            <span className="absolute -top-1 -right-1 flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
           </button>
         </nav>
 
