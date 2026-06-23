@@ -78,23 +78,32 @@ COMMON Q&A GUIDELINES:
 IMPORTANT: Focus on Mauricio’s real tech stack and experience. Never invent fictitious experiences. For things outside his profile, politely mention that his expertise lies firmly in Android Native (Kotlin), Flutter, and React Frontend development. Keep answers concise, highly engaging, professional, and well-structured.
 `;
 
-export const onRequestPost = async (context: any) => {
+export async function onRequestPost(context: any) {
   try {
-    const { message, history } = (await context.request.json()) as any;
-
-    // O Cloudflare injeta a variável de ambiente através do context.env
     const currentApiKey = context.env.GEMINI_API_KEY;
+
+    const body = await context.request.json();
+    const { message, history } = body;
+
+    if (!message) {
+      return new Response(JSON.stringify({ error: "Message is required." }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
     if (!currentApiKey || currentApiKey === "MY_GEMINI_API_KEY") {
       const mockResponses = [
-        "Olá! Atualmente meu portfólio está em modo offline pois a API Key do Gemini não está configurada.",
-        "Pode entrar em contato pelo email m.alexandre1992@gmail.com",
+        "No momento estou operando em modo de contingência. Posso confirmar que o Mauricio é especialista em Android (Kotlin) e Flutter, mas a conexão com o motor de IA está temporariamente indisponível.",
+        "Desculpe a interrupção. O sistema de IA está offline, mas você pode ver meu portfólio completo em alexandre1992.dev.br ou entrar em contato pelo LinkedIn.",
       ];
       const responseText =
         mockResponses[Math.floor(Math.random() * mockResponses.length)];
+
       return new Response(
         JSON.stringify({ text: responseText, isMock: true }),
         {
+          status: 200,
           headers: { "Content-Type": "application/json" },
         },
       );
@@ -102,15 +111,8 @@ export const onRequestPost = async (context: any) => {
 
     const aiClient = new GoogleGenAI({
       apiKey: currentApiKey,
-      httpOptions: {
-        headers: {
-          "User-Agent": "aistudio-build",
-        },
-      },
     });
 
-    // Format chat history for @google/genai SDK
-    // The chat history can be built using standard roles 'user' and 'model'
     const chat = aiClient.chats.create({
       model: "gemini-2.5-flash",
       config: {
@@ -125,33 +127,29 @@ export const onRequestPost = async (context: any) => {
         : [],
     });
 
-    const result = await chat.sendMessage(message);
+    const result = await chat.sendMessage({
+      message: message,
+    });
 
     return new Response(
       JSON.stringify({ text: result.text || "", isMock: false }),
       {
+        status: 200,
         headers: { "Content-Type": "application/json" },
       },
     );
   } catch (error: any) {
-    console.error("Gemini API Error, switching to fallback:", error);
-
-    // Fallback offline caso o Gemini falhe
-    const fallbackResponses = [
-      "No momento estou operando em modo de contingência. Posso confirmar que o Mauricio é especialista em Android (Kotlin) e Flutter, mas a conexão com o motor de IA está temporariamente indisponível.",
-      "Desculpe a interrupção. O sistema de IA está offline, mas você pode ver meu portfólio completo em alexandre1992.dev.br ou entrar em contato pelo LinkedIn.",
-    ];
+    console.error("Gemini API Error:", error);
 
     return new Response(
       JSON.stringify({
-        text: fallbackResponses[
-          Math.floor(Math.random() * fallbackResponses.length)
-        ],
+        text: "Desculpe! Ocorreu um erro no servidor ao tentar se comunicar com o motor de IA.",
         isMock: true,
       }),
       {
+        status: 200, // Retornamos 200 com isMock para o frontend lidar de forma elegante
         headers: { "Content-Type": "application/json" },
       },
     );
   }
-};
+}
