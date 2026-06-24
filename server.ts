@@ -24,7 +24,7 @@ KEY PROFILE INFORMATION:
 - Location: São Paulo, SP, Brazil
 - Contact Method: email or LinkedIn is preferred
 
-SUMMARY OF QUALIFICATIONS:
+SUMMARY of QUALIFICATIONS:
 
 - Software Engineer with more than 13 years of overall professional experience, specializing in Mobile App Development (Android natively and Flutter) since 2016, and possessing a solid background in enterprise ERP development using Delphi Intraweb from 2012.
 - Deep focus on Clean Architecture, extensive unit/instrumented testing, and best engineering practices.
@@ -89,9 +89,31 @@ COMMON Q&A GUIDELINES:
 IMPORTANT: Focus on Mauricio’s real tech stack and experience. Never invent fictitious experiences. For things outside his profile, politely mention that his expertise lies firmly in Android Native (Kotlin), Flutter, and React Frontend development. Keep answers concise, highly engaging, professional, and well-structured.
 `;
 
-// AI Assistant chat endpoint
 app.post("/api/chat", async (req, res) => {
   try {
+    const userAgent = req.headers["user-agent"] || "";
+    if (
+      !userAgent ||
+      userAgent.includes("curl") ||
+      userAgent.includes("PostmanRuntime")
+    ) {
+      res.status(403).json({ error: "Acesso negado." });
+      return;
+    }
+
+    const origin = req.headers.origin;
+    const allowedOrigins = [
+      "https://alexandre1992.dev.br",
+      "https://www.alexandre1992.dev.br",
+      "http://localhost:5173",
+      "http://localhost:3000",
+    ];
+
+    if (!origin || !allowedOrigins.includes(origin)) {
+      res.status(403).json({ error: "Origem não autorizada." });
+      return;
+    }
+
     const { message, history } = req.body;
 
     if (!message) {
@@ -102,7 +124,6 @@ app.post("/api/chat", async (req, res) => {
     const currentApiKey = process.env.GEMINI_API_KEY;
 
     if (!currentApiKey || currentApiKey === "MY_GEMINI_API_KEY") {
-      // Fallback mock responses when API key is not configured yet
       const mockResponses = [
         "Olá! Atualmente meu portfólio está configurado com mock responses porque a chave de API do Gemini ainda não foi configurada. Como Engenheiro Mobile Sênior, implemento Clean Architecture, Jetpack Compose e Flutter. Como posso te ajudar hoje?",
         "Estou à disposição para responder sobre minha experiência com desenvolvimento Android (Kotlin), Flutter e aplicações React com Design Systems!",
@@ -123,8 +144,6 @@ app.post("/api/chat", async (req, res) => {
       },
     });
 
-    // Format chat history for @google/genai SDK
-    // The chat history can be built using standard roles 'user' and 'model'
     const chat = aiClient.chats.create({
       model: "gemini-2.5-flash",
       config: {
@@ -145,14 +164,10 @@ app.post("/api/chat", async (req, res) => {
 
     res.json({ text: result.text || "", isMock: false });
   } catch (error: any) {
-    console.error("Gemini API Error, switching to fallback:", error);
-
-    // Fallback offline caso o Gemini falhe
     const fallbackResponses = [
       "No momento estou operando em modo de contingência. Posso confirmar que o Mauricio é especialista em Android (Kotlin) e Flutter, mas a conexão com o motor de IA está temporariamente indisponível.",
       "Desculpe a interrupção. O sistema de IA está offline, mas você pode ver meu portfólio completo em alexandre1992.dev.br ou entrar em contato pelo LinkedIn.",
     ];
-
     res.status(200).json({
       text: fallbackResponses[
         Math.floor(Math.random() * fallbackResponses.length)
@@ -162,7 +177,6 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-// Proxy endpoint to fetch real-time stats from pub.dev
 app.get("/api/pub-packages", async (req, res) => {
   const getPubPackageData = async (
     pkgName: string,
@@ -177,7 +191,6 @@ app.get("/api/pub-packages", async (req, res) => {
     let popularity = defaultPopularity;
 
     try {
-      // 1. Fetch metadata
       const infoRes = await fetch(`https://pub.dev/api/packages/${pkgName}`);
       if (infoRes.ok) {
         const infoJson = (await infoRes.json()) as any;
@@ -185,12 +198,9 @@ app.get("/api/pub-packages", async (req, res) => {
           version = infoJson.latest.version;
         }
       }
-    } catch (e) {
-      console.warn(`Error fetching metadata for ${pkgName}:`, e);
-    }
+    } catch (e) {}
 
     try {
-      // 2. Fetch metrics
       const metricsRes = await fetch(
         `https://pub.dev/api/packages/${pkgName}/metrics`,
       );
@@ -213,9 +223,7 @@ app.get("/api/pub-packages", async (req, res) => {
           }
         }
       }
-    } catch (e) {
-      console.warn(`Error fetching metrics for ${pkgName}:`, e);
-    }
+    } catch (e) {}
 
     return { name: pkgName, version, likes, pubPoints, popularity };
   };
@@ -227,14 +235,12 @@ app.get("/api/pub-packages", async (req, res) => {
     ]);
     res.json(results);
   } catch (error: any) {
-    console.error("Error fetching pub.dev packages metrics:", error);
     res.status(500).json({
-      error: "Failed to fetch metrics from pub.dev background services",
+      error: "Failed to fetch metrics",
     });
   }
 });
 
-// Configure Vite or Serve Static Files
 async function configureServer() {
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
@@ -250,9 +256,7 @@ async function configureServer() {
     });
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on port ${PORT}`);
-  });
+  app.listen(PORT, "0.0.0.0", () => {});
 }
 
 configureServer();

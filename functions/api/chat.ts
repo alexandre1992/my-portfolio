@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
+
 export const MAURICIO_RESUME_CONTEXT = `
 You are the AI Professional Assistant representing Mauricio Alexandre, a highly skilled and experienced Senior Mobile and Frontend Engineer with 13+ years of overall software experience.
 Your goal is to answer questions from recruiters, managers, and engineering leads about Mauricio's background, technical skills, previous work experience, project history, and architecture philosophies.
@@ -80,9 +81,37 @@ IMPORTANT: Focus on Mauricio’s real tech stack and experience. Never invent fi
 
 export async function onRequestPost(context: any) {
   try {
-    const currentApiKey = context.env.GEMINI_API_KEY;
+    const request = context.request;
 
-    const body = await context.request.json();
+    const userAgent = request.headers.get("User-Agent") || "";
+    if (
+      !userAgent ||
+      userAgent.includes("curl") ||
+      userAgent.includes("PostmanRuntime")
+    ) {
+      return new Response(JSON.stringify({ error: "Acesso negado." }), {
+        status: 403,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const origin = request.headers.get("Origin");
+    const allowedOrigins = [
+      "https://alexandre1992.dev.br",
+      "https://www.alexandre1992.dev.br",
+      "http://localhost:5173",
+      "http://localhost:3000",
+    ];
+
+    if (!origin || !allowedOrigins.includes(origin)) {
+      return new Response(JSON.stringify({ error: "Origem não autorizada." }), {
+        status: 403,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const currentApiKey = context.env.GEMINI_API_KEY;
+    const body = await request.json();
     const { message, history } = body;
 
     if (!message) {
@@ -139,11 +168,9 @@ export async function onRequestPost(context: any) {
       },
     );
   } catch (error: any) {
-    console.error("Gemini API Error:", error);
-
     const fallbackResponses = [
       "No momento estou operando em modo de contingência. Posso confirmar que o Mauricio é especialista em Android (Kotlin) e Flutter, mas a conexão com o motor de IA está temporariamente indisponível.",
-      "Desculpe a interrupção. O sistema de IA está offline, mas você pode ver meu portfólio completo em alexandre1992.dev.br ou entrar em contato pelo LinkedIn.",
+      "Desculpe a interrupção. O system de IA está offline, mas você pode ver meu portfólio completo em alexandre1992.dev.br ou entrar em contato pelo LinkedIn.",
     ];
     const responseText =
       fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
